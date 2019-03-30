@@ -43,5 +43,57 @@ namespace BlogManager.Areas.User.Controllers
             }
             return View(blogPost);
         }
+
+        //GET  EDIT Action Method
+        public async Task <IActionResult> Edit(int? id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var blogPost = await _db.BlogPosts.FindAsync(id);
+            if(blogPost == null)
+            {
+                return NotFound();
+            }
+
+            return View(blogPost);
+        }
+
+        //POST EDIT Action Method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, BlogPost blogPost)
+        {
+            if (id!= blogPost.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _db.Update(blogPost);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(blogPost);
+        }
+
+
+        //GET  Details Action Method
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var blogPost = await _db.BlogPosts.FindAsync(id);
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+
+            return View(blogPost);
+        }
     }
 }
