@@ -20,7 +20,16 @@
     <table class="table table-striped border">
         <tr class="table-info">
             <th>
-                @Html.DisplayNameFor(m=>m.Title)
+                @Html.DisplayNameFor(m => m.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DateAndTime)
             </th>
             <th></th>
         </tr>
@@ -30,6 +39,19 @@
             <td>
                 @Html.DisplayFor(m => item.Title)
             </td>
+
+            <td>
+                @Html.DisplayFor(m => item.Content)
+            </td>
+
+            <td>
+                @Html.DisplayFor(m => item.Summary)
+            </td>
+
+            <td>
+                @Html.DisplayFor(m => item.DateAndTime)
+            </td>
+
             <td>
                 EDIT | DELETE
             </td>
