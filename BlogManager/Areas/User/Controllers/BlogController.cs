@@ -17,8 +17,6 @@ namespace BlogManager.Areas.User.Controllers
             _db = db;
         }
 
-
-
         public IActionResult Index()
         {
             return View(_db.BlogPosts.ToList());
