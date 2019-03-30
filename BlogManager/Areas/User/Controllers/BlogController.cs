@@ -35,7 +35,7 @@ namespace BlogManager.Areas.User.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BlogPost blogPost)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _db.Add(blogPost);
                 await _db.SaveChangesAsync();
@@ -45,14 +45,14 @@ namespace BlogManager.Areas.User.Controllers
         }
 
         //GET  EDIT Action Method
-        public async Task <IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            if(id==null)
+            if (id == null)
             {
                 return NotFound();
             }
             var blogPost = await _db.BlogPosts.FindAsync(id);
-            if(blogPost == null)
+            if (blogPost == null)
             {
                 return NotFound();
             }
@@ -65,7 +65,7 @@ namespace BlogManager.Areas.User.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, BlogPost blogPost)
         {
-            if (id!= blogPost.Id)
+            if (id != blogPost.Id)
             {
                 return NotFound();
             }
@@ -94,6 +94,34 @@ namespace BlogManager.Areas.User.Controllers
             }
 
             return View(blogPost);
+        }
+
+        //GET  DELETE Action Metod
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var blogPost = await _db.BlogPosts.FindAsync(id);
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+
+            return View(blogPost);
+        }
+
+        //POST DELETE Action Metod
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var blogPost = await _db.BlogPosts.FindAsync(id);
+            _db.BlogPosts.Remove(blogPost);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
     }
 }
