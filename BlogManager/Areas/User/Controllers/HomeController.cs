@@ -8,6 +8,7 @@ using BlogManager.Models;
 
 namespace BlogManager.Controllers
 {
+    [Area("User")]
     public class HomeController : Controller
     {
         public IActionResult Index()
