@@ -5,15 +5,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BlogManager.Models;
+using BlogManager.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogManager.Controllers
 {
     [Area("User")]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _db;
+
+        public HomeController(ApplicationDbContext db)
         {
-            return View();
+            _db = db;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var blogs = await _db.BlogPosts.Include(m => m.Title).Include(m => m.Summary).Include(m => m.Content).ToListAsync();
+
+            return View(blogs);
         }
 
         public IActionResult About()
